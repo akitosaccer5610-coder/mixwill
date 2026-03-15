@@ -250,7 +250,7 @@ a {
 }
 
 .section-padding {
-    padding: clamp(50px, 8vw, 80px) 0;
+    padding: clamp(30px, 6vw, 50px) 0; /* 大幅に短縮 */
 }
 
 .text-center {
@@ -680,11 +680,16 @@ h4 {
 
 .failure-card {
     background: var(--white);
-    padding: 40px 30px;
+    padding: 30px;
     border-radius: var(--radius-md);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
     text-align: center;
     border-top: 4px solid #dc3545;
+    transition: transform 0.3s ease;
+}
+
+.failure-card:hover {
+    transform: translateY(-5px);
 }
 
 .failure-icon {
@@ -702,14 +707,20 @@ h4 {
 }
 
 .failure-title {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     margin-bottom: 15px;
-    color: #333;
+    color: #111; /* More contrast */
+    font-weight: 700;
+}
+
+.failure-card p {
+    color: #222; /* More contrast */
+    line-height: 1.7;
 }
 
 .highlight-red {
     font-weight: 700;
-    color: #dc3545;
+    color: #b02a37; /* Slightly darker red for better readability on white */
 }
 
 /* Solution Section */
@@ -955,21 +966,21 @@ h4 {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 15px; /* 30pxから15pxへ */
 }
 
 .support-item {
     background: rgba(255, 255, 255, 0.05);
-    padding: 30px 40px;
+    padding: 20px 30px; /* 30x40から20x30へ */
     border-radius: var(--radius-md);
     display: flex;
-    align-items: flex-start;
-    gap: 30px;
+    align-items: center; /* 開始点から中央へ */
+    gap: 20px;
     border-left: 4px solid var(--accent);
 }
 
 .support-number {
-    font-size: 3rem;
+    font-size: 2rem; /* 3remから2remへ */
     font-weight: 900;
     color: rgba(212, 175, 55, 0.3);
     line-height: 1;
@@ -1039,8 +1050,8 @@ h4 {
     }
 
     .hero-title {
-        font-size: clamp(1.6rem, 7vw, 1.9rem); /* 2.1remから1.9remへ */
-        margin-bottom: 20px;
+        font-size: clamp(1.4rem, 6.5vw, 1.7rem); /* 1行におさめるための縮小 */
+        margin-bottom: 15px;
         line-height: 1.25;
     }
 
@@ -1126,7 +1137,7 @@ h4 {
 
     .gallery-grid {
         grid-template-columns: repeat(2, 1fr) !important;
-        gap: 12px !important;
+        gap: 8px !important; /* 隙間をさらに詰める */
     }
 
     .price-card.popular {
