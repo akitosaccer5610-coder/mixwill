@@ -1577,6 +1577,100 @@ h4 {
     text-align: left;
 }
 
+/* Voices Section */
+.voices-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* PCは2列固定でバランスを取る */
+    gap: 30px;
+}
+
+@media (max-width: 1024px) {
+    .voices-grid {
+        grid-template-columns: 1fr; /* タブレット以下は1列にして見切れを防ぐ */
+        max-width: 600px; /* 広がりすぎないよう制限 */
+        margin: 0 auto;
+    }
+}
+
+.voice-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    overflow: hidden;
+    position: relative;
+}
+
+.voice-img-container {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+}
+
+@media (max-width: 1024px) {
+    .voice-img-container {
+        aspect-ratio: 3 / 2; /* 1列時は少し高さを出して表情を見やすく */
+    }
+}
+
+.voice-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+}
+
+.voice-content {
+    padding: 20px;
+    position: relative;
+}
+
+.voice-quote-icon {
+    color: var(--primary-light);
+    font-size: 2rem;
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    opacity: 0.3;
+}
+
+.voice-title {
+    position: relative;
+    z-index: 1;
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding-top: 10px;
+    color: #111;
+}
+
+.voice-text {
+    font-size: 0.9rem;
+    color: #333; /* 読みやすさのため濃く */
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.voice-subtext {
+    font-size: 0.85em;
+    opacity: 0.8;
+}
+
+.voice-note {
+    font-size: 0.8rem;
+    color: #555;
+    line-height: 1.4;
+    margin-bottom: 15px;
+    background: rgba(0,0,0,0.03);
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.voice-rating {
+    font-size: 0.8rem;
+    color: #888;
+    text-align: right;
+}
+
+
 .info-sub {
     display: block;
     font-size: 0.85rem;
