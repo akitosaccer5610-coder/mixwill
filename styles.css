@@ -30,6 +30,20 @@ body {
     background-color: var(--primary-dark);
     overflow-x: hidden;
     padding-top: 0; /* Reset for sticky nav */
+    /* モバイルでの文字サイズ微調整 */
+    -webkit-text-size-adjust: 100%;
+    word-break: normal;
+    overflow-wrap: break-word;
+}
+
+/* Utils for Responsive display */
+.pc-only { display: block; }
+.sp-only { display: none; }
+
+@media (max-width: 768px) {
+    .pc-only { display: none !important; }
+    .sp-only { display: block !important; }
+    br.sp-only { display: inline !important; }
 }
 
 /* Navbar */
@@ -234,10 +248,12 @@ h1, h2, h3, h4 {
 }
 
 .section-title {
-    font-size: 2.2rem;
-    margin-bottom: 3rem;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    margin-bottom: clamp(2rem, 8vw, 4rem);
     position: relative;
-    line-height: 1.5;
+    line-height: 1.4;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
 }
 
 .bg-light .section-title,
@@ -435,9 +451,11 @@ h1, h2, h3, h4 {
 }
 
 .hero-title {
-    font-size: 3rem;
+    font-size: clamp(1.8rem, 8vw, 3.8rem);
     margin-bottom: 30px;
-    line-height: 1.3;
+    line-height: 1.25;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
 }
 
 .hero-line {
@@ -810,47 +828,54 @@ h1, h2, h3, h4 {
     margin: 0;
 }
 
-/* FAB */
+/* FAB - Floating Action Button (Mobile) */
 .fab-container {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    z-index: 999;
-    display: none;
+    z-index: 1000;
+    display: none; /* Default hidden on PC */
 }
 
 .fab-btn {
-    color: var(--white);
-    padding: 12px 24px;
-    border-radius: 50px;
+    background-color: #06C755;
+    color: white;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 12px;
-    box-shadow: 0 10px 25px rgba(6, 199, 85, 0.4);
-    animation: pulse 2s infinite;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+    border: none;
 }
+
+.fab-btn:hover { transform: scale(1.1); }
 
 .fab-text {
-    font-weight: 700;
-    font-size: 0.9rem;
-    line-height: 1.2;
-    text-align: left;
+    font-size: 0.65rem;
+    font-weight: bold;
+    line-height: 1.1;
+    margin-top: 2px;
+    text-align: center;
 }
 
-.fab-btn i { font-size: 2rem; }
+.fab-btn i { font-size: 1.5rem; }
 
-/* Responsive */
-.sp-only { display: none; }
-.sp-block { display: inline; }
-
+/* Responsive Media Queries */
 @media (max-width: 768px) {
-    .sp-only { display: block; }
-    .sp-block { display: block; }
+    .section-padding { padding: 60px 0; }
     
-    /* Mobile Navbar */
-    .navbar { padding: 15px 0; background: rgba(10, 10, 10, 0.95); }
+    .hero { padding: 120px 0 100px; }
+    .hero-subtitle { font-size: 1rem; line-height: 1.6; margin-bottom: 30px; }
+    .btn-hero { padding: 16px 24px; font-size: 1.1rem; }
+
+    /* Navbar */
+    .navbar { padding: 10px 0; background: rgba(10, 10, 10, 0.95); }
     .hamburger { display: flex; }
-    
     .nav-links {
         position: fixed;
         top: -100vh;
@@ -861,64 +886,31 @@ h1, h2, h3, h4 {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 30px;
-        transition: top 0.4s ease;
-        z-index: 999;
+        gap: 25px;
+        transition: top 0.4s ease-in-out;
     }
-    
     .nav-links.active { top: 0; }
-    .nav-links a { font-size: 1.2rem; }
-    .nav-cta-item { margin-top: 20px; }
-
-    .section-padding { padding: 60px 0; }
-    .hero { padding: 120px 0 80px; }
     
-    .hero-title { font-size: clamp(1.8rem, 6vw, 2.5rem); }
-    .hero-subtitle { font-size: 1rem; }
-    
-    .solution-grid { grid-template-columns: 1fr; }
-    
-    .price-card.popular {
-        transform: scale(1);
-        margin: 20px 0;
+    /* Layout */
+    .solution-grid { grid-template-columns: 1fr; gap: 30px; }
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px !important;
     }
     
-    .support-item {
-        flex-direction: column;
-        gap: 15px;
-        padding: 24px;
-    }
+    .price-card.popular { transform: scale(1); margin: 0; }
+    .price-amount { font-size: 2.5rem; }
     
-    .fab-container {
-        display: block;
-        right: auto;
-        left: 50%;
-        transform: translateX(-50%);
-        bottom: 16px;
-        width: 90%;
-        max-width: 350px;
-    }
+    .support-item { flex-direction: column; gap: 15px; padding: 25px; }
     
-    .fab-btn {
-        width: 100%;
-        justify-content: center;
-        padding: 16px;
-    }
-
-    /* Mobile specifically for new sections */
+    .fab-container { display: block; } /* Show only on mobile */
+    
+    /* Flow Section */
     .flow-steps::before { display: none; }
-    .flow-step {
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
-        align-items: center;
-    }
+    .flow-step { flex-direction: column; gap: 15px; padding: 20px; }
+    
     .info-row { flex-direction: column; gap: 5px; }
-    .info-row dt { width: 100%; color: var(--accent); }
-    .stat-card { width: 100%; }
-    .atmosphere-content { padding: 30px 20px; }
-    .simulation-card { padding: 20px; }
-    .calc-row { flex-direction: column; text-align: center; gap: 5px; }
+    .info-row dt { width: 100%; }
 }
 
 /* =========================================
